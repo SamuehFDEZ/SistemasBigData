@@ -1,0 +1,20 @@
+services:
+  sqoop:
+    build: .
+    container_name: sqoop_container
+    volumes:
+      - ./sqoop-config:/usr/local/sqoop
+    environment:
+      - HADOOP_HOME=/usr/local/hadoop
+      - SQOOP_HOME=/usr/local/sqoop
+      - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    ports:
+      - "8088:8088"      # Puerto para el ResourceManager de Hadoop
+      - "50070:50070"    # Puerto para HDFS
+      - "22:22"          # Puerto para SSH (si es necesario)
+    networks:
+      - sqoop_network
+
+networks:
+  sqoop_network:
+    driver: bridge

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    hostname: namenode
+    ports:
+      - "9870:9870"  # Puerto de la interfaz web del NameNode
+      - "9000:9000"  # Puerto del NameNode
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+    volumes:
+      - namenode-data:/hadoop/dfs/name
+    networks:
+      - hadoop
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    hostname: datanode
+    ports:
+      - "9864:9864"  # Puerto de la interfaz web del DataNode
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+    volumes:
+      - datanode-data:/hadoop/dfs/data
+    networks:
+      - hadoop
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: resourcemanager
+    hostname: resourcemanager
+    ports:
+      - "8088:8088"  # Puerto de la interfaz web del ResourceManager
+    environment:
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+    networks:
+      - hadoop
+
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager
+    hostname: nodemanager
+    networks:
+      - hadoop
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    container_name: historyserver
+    hostname: historyserver
+    ports:
+      - "8188:8188"  # Puerto de la interfaz web del JobHistoryServer
+    environment:
+      - YARN_CONF_yarn_timeline___service_enabled=true
+      - YARN_CONF_yarn_log___aggregation___enable=true
+    networks:
+      - hadoop
+    volumes:
+      - historyserver-data:/hadoop/yarn/timeline
+
+volumes:
+  namenode-data:
+  datanode-data:
+  historyserver-data:
+
+networks:
+  hadoop:
+    driver: bridge

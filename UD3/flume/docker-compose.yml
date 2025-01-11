@@ -1,0 +1,22 @@
+services:
+  flume:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apache_flume
+    volumes:
+      - ./flume.conf:/opt/flume/conf/flume.conf
+      - ./logs:/opt/flume/logs
+    ports:
+      - "4545:4545"
+    command: [
+      "flume-ng",
+      "agent",
+      "--conf",
+      "/opt/flume/conf/",
+      "--conf-file",
+      "/opt/flume/conf/flume.conf",
+      "--name",
+      "agent",
+      "-Dflume.root.logger=INFO,console"
+    ]
