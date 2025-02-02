@@ -1,7 +1,7 @@
 set.seed(123) # Para reproducibilidad de datos
 
 # Definir nombres de tiendas y meses
-tiendas <- c("Tienda A", "Tienda B", "Tienda C", "Tienda D", "Tienda E")
+tiendas <- c("Tienda de airsoft", "Tienda de juguetes", "Tienda de ropa", "Tienda de electrodomesticos", "Tienda de videojuegos")
 meses <- month.name
 
 # Generación de datos lógicos para 5 tiendas en 12 meses
@@ -100,7 +100,7 @@ ggplot(totalGlobales, aes(x = Mes, y = Ingresos, group = 1)) +
   xlab("Mes") +
   ylab("Ingresos") +
   theme_minimal() +
-  theme(axis.text.x = elementText(angle = 45, hjust = 1))  # Rotar etiquetas
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotar etiquetas
 
 # Gráfico de beneficios por mes
 ggplot(totalGlobales, aes(x = Mes, y = Beneficio, group = 1)) +
@@ -110,7 +110,7 @@ ggplot(totalGlobales, aes(x = Mes, y = Beneficio, group = 1)) +
   xlab("Mes") +
   ylab("Beneficio") +
   theme_minimal() +
-  theme(axis.text.x = elementText(angle = 45, hjust = 1))  # Rotar etiquetas
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotar etiquetas
 
 # Gráfico de ingresos por tienda
 ggplot(totalesTienda, aes(x = Mes, y = Ingresos, fill = Tienda)) +
@@ -119,7 +119,7 @@ ggplot(totalesTienda, aes(x = Mes, y = Ingresos, fill = Tienda)) +
   xlab("Mes") +
   ylab("Ingresos") +
   theme_minimal() +
-  theme(axis.text.x = elementText(angle = 45, hjust = 1))  # Rotar etiquetas
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotar etiquetas
 
 # Gráfico de beneficios por tienda
 ggplot(totalesTienda, aes(x = Mes, y = Beneficio, fill = Tienda)) +
@@ -128,4 +128,4 @@ ggplot(totalesTienda, aes(x = Mes, y = Beneficio, fill = Tienda)) +
   xlab("Mes") +
   ylab("Beneficio") +
   theme_minimal() +
-  theme(axis.text.x = elementText(angle = 45, hjust = 1))  # Rotar etiquetas
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotar etiquetas
